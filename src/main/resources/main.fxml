@@ -10,7 +10,13 @@
     <Button text="Charger image" onAction="#loadImage"/>
     <Button text="Grayscale" onAction="#applyGrayscale"/>
     <Button text="Sepia" onAction="#applySepia"/>
+    <Button text="RGB Swap" onAction="#applyRGBSwap"/>
+    <Button text="Rotate Right" onAction="#rotateRight"/>
+    <Button text="Rotate Left" onAction="#rotateLeft"/>
+    <Button text="Symétrie horizontale" onAction="#applyHorizontalSymmetry"/>
+    <Button text="Symétrie verticale" onAction="#applyVerticalSymmetry"/>
+    <Button text="Reset image" onAction="#resetImage"/>
 
-    <ImageView fx:id="imageView" fitWidth="400" preserveRatio="true"/>
+    <ImageView fx:id="imageView" fitWidth="400" fitHeight="400" preserveRatio="true"/>
 
 </VBox>

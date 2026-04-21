@@ -7,10 +7,13 @@ import java.util.List;
 public class ImageModel {
 
     private Image image;
+    private Image originalImage;
+
     private List<Filter> filters = new ArrayList<>();
 
     public ImageModel(Image image) {
         this.image = image;
+        this.originalImage = image;
     }
 
     public Image getImage() {
@@ -20,5 +23,10 @@ public class ImageModel {
     public void applyFilter(Filter filter) {
         image = filter.apply(image);
         filters.add(filter);
+    }
+
+    public void reset() {
+        image = originalImage;
+        filters.clear();
     }
 }

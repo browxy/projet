@@ -7,6 +7,9 @@ import javafx.stage.FileChooser;
 import model.ImageModel;
 import model.filters.GrayscaleFilter;
 import model.filters.SepiaFilter;
+import model.filters.RGBSwapFilter;
+import model.filters.RotateFilter;
+import model.filters.SymmetryFilter;
 
 import java.io.File;
 
@@ -45,8 +48,49 @@ public class MainController {
     }
 
     @FXML
+    public void applyRGBSwap() {
+        if (model != null) {
+            model.applyFilter(new RGBSwapFilter());
+            imageView.setImage(model.getImage());
+        }
+    }
+
+    @FXML
+    public void rotateRight() {
+        if (model != null) {
+            model.applyFilter(new RotateFilter(true));
+            imageView.setImage(model.getImage());
+        }
+    }
+
+    @FXML
+    public void rotateLeft() {
+        if (model != null) {
+            model.applyFilter(new RotateFilter(false));
+            imageView.setImage(model.getImage());
+        }
+    }
+
+    @FXML
+    public void applyHorizontalSymmetry() {
+        if (model != null) {
+            model.applyFilter(new SymmetryFilter(true));
+            imageView.setImage(model.getImage());
+        }
+    }
+
+    @FXML
+    public void applyVerticalSymmetry() {
+        if (model != null) {
+            model.applyFilter(new SymmetryFilter(false));
+            imageView.setImage(model.getImage());
+        }
+    }
+
+    @FXML
     public void resetImage() {
         if (model != null) {
+            model.reset();
             imageView.setImage(model.getImage());
         }
     }
