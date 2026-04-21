@@ -9,6 +9,7 @@
 
     <Button text="Charger image" onAction="#loadImage"/>
     <Button text="Grayscale" onAction="#applyGrayscale"/>
+    <Button text="Sepia" onAction="#applySepia"/>
 
     <ImageView fx:id="imageView" fitWidth="400" preserveRatio="true"/>
 
