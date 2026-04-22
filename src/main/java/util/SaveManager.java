@@ -53,6 +53,24 @@ public class SaveManager {
                     case "Prewitt":
                         model.applyFilter(new model.filters.PrewittFilter());
                         break;
+                    case "Rotate Right":
+                        model.applyFilter(new model.filters.RotateFilter(true));
+                        break;
+                    case "Rotate Left":
+                        model.applyFilter(new model.filters.RotateFilter(false));
+                        break;
+                    case "Horizontal Symmetry":
+                        model.applyFilter(new model.filters.SymmetryFilter(true));
+                        break;
+                    case "Vertical Symmetry":
+                        model.applyFilter(new model.filters.SymmetryFilter(false));
+                        break;
+                    case "Encrypt":
+                        System.err.println("Warning: Encrypt filter cannot be restored without password");
+                        break;
+                    default:
+                        System.err.println("Unknown filter: " + f);
+                        break;
                 }
             }
 

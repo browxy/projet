@@ -14,7 +14,7 @@
         <Insets top="10" right="10" bottom="10" left="10"/>
     </padding>
 
-    <!-- Contrôles à gauche -->
+
     <VBox spacing="10" prefWidth="250">
         <TextField fx:id="tagField" promptText="Ajouter un tag"/>
         <ListView fx:id="tagList" prefHeight="100"/>
@@ -22,6 +22,8 @@
         <Button text="Charger image" onAction="#loadImage" maxWidth="Infinity"/>
         <Button text="Save JSON" onAction="#saveImage" maxWidth="Infinity"/>
         <Button text="Load JSON" onAction="#loadFromJson" maxWidth="Infinity"/>
+        <Button text="Encrypt / Decrypt" onAction="#encryptImage" maxWidth="Infinity"/>
+
         <Button text="Grayscale" onAction="#applyGrayscale" maxWidth="Infinity"/>
         <Button text="Sepia" onAction="#applySepia" maxWidth="Infinity"/>
         <Button text="RGB Swap" onAction="#applyRGBSwap" maxWidth="Infinity"/>
@@ -33,7 +35,7 @@
         <Button text="Reset image" onAction="#resetImage" maxWidth="Infinity"/>
     </VBox>
 
-    <!-- Image à droite -->
+
     <ImageView fx:id="imageView" fitWidth="500" fitHeight="500" preserveRatio="true"/>
 
 </HBox>

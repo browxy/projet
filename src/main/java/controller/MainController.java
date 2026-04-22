@@ -2,6 +2,7 @@ package controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
@@ -12,6 +13,7 @@ import model.filters.RGBSwapFilter;
 import model.filters.PrewittFilter;
 import model.filters.RotateFilter;
 import model.filters.SymmetryFilter;
+import model.filters.EncryptFilter;
 import util.SaveManager;
 import javafx.scene.control.ListView;
 
@@ -129,6 +131,19 @@ public class MainController {
         if (model != null) {
             model.applyFilter(new SymmetryFilter(false));
             imageView.setImage(model.getImage());
+        }
+    }
+
+    @FXML
+    public void encryptImage() {
+        if (model != null) {
+            TextInputDialog dialog = new TextInputDialog();
+            dialog.setHeaderText("Enter password");
+
+            dialog.showAndWait().ifPresent(password -> {
+                model.applyFilter(new EncryptFilter(password));
+                imageView.setImage(model.getImage());
+            });
         }
     }
 
