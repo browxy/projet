@@ -1,6 +1,6 @@
 # Image Manager - Bibliothèque d'Images
 
-Projet L2 Informatique - POO Java 2025-2026
+Projet POO Java 2025-2026
 
 ## 📋 Description
 
@@ -143,10 +143,5 @@ Cliquez sur **"Save to Library"**
 </dependencies>
 ```
 
-## 👥 Auteurs
 
-Projet réalisé dans le cadre du cours de POO Java - L2 Informatique
 
-## 📄 Licence
-
-Projet académique - Tous droits réservés
