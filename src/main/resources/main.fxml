@@ -3,14 +3,18 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ListView?>
 
 <?import javafx.scene.control.TextField?>
 <VBox spacing="10" xmlns:fx="http://javafx.com/fxml"
       fx:controller="controller.MainController">
 
-    <Button text="Charger image" onAction="#loadImage"/>
     <TextField fx:id="tagField" promptText="Ajouter un tag"/>
+    <ListView fx:id="tagList" prefHeight="50"/>
     <Button text="Add Tag" onAction="#addTag"/>
+    <Button text="Charger image" onAction="#loadImage"/>
+    <Button text="Save JSON" onAction="#saveImage"/>
+    <Button text="Load JSON" onAction="#loadFromJson"/>
     <Button text="Grayscale" onAction="#applyGrayscale"/>
     <Button text="Sepia" onAction="#applySepia"/>
     <Button text="RGB Swap" onAction="#applyRGBSwap"/>

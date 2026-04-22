@@ -12,6 +12,8 @@ import model.filters.RGBSwapFilter;
 import model.filters.PrewittFilter;
 import model.filters.RotateFilter;
 import model.filters.SymmetryFilter;
+import util.SaveManager;
+import javafx.scene.control.ListView;
 
 import java.io.File;
 
@@ -26,10 +28,32 @@ public class MainController {
     private ImageModel model;
 
     @FXML
+    private ListView<String> tagList;
+
+    @FXML
+    public void loadFromJson() {
+        ImageModel loaded = SaveManager.load("data.json");
+        if (loaded != null) {
+            model = loaded;
+            imageView.setImage(model.getImage());
+
+            tagList.getItems().setAll(model.getTags()); // 🔥 sinon vide
+        }
+    }
+
+    @FXML
     public void addTag() {
         if (model != null && !tagField.getText().isEmpty()) {
             model.addTag(tagField.getText());
+            tagList.getItems().setAll(model.getTags()); // 🔥 important
             tagField.clear();
+        }
+    }
+
+    @FXML
+    public void saveImage() {
+        if (model != null) {
+            SaveManager.save(model, "data.json");
         }
     }
 

@@ -26,6 +26,14 @@ public class ImageModel {
         filters.add(filter);
     }
 
+    public List<String> getFilterNames() {
+        List<String> names = new ArrayList<>();
+        for (Filter f : filters) {
+            names.add(f.getName());
+        }
+        return names;
+    }
+
     public void addTag(String tag) {
         tags.add(tag);
     }
