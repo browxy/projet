@@ -4,7 +4,11 @@ import javafx.scene.image.*;
 import javafx.scene.paint.Color;
 import model.Filter;
 
+import java.security.MessageDigest;
 import java.security.SecureRandom;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class EncryptFilter implements Filter {
 
@@ -23,26 +27,46 @@ public class EncryptFilter implements Filter {
         PixelReader reader = input.getPixelReader();
         PixelWriter writer = output.getPixelWriter();
 
-        int seed = password.hashCode();
-        java.util.Random random = new java.util.Random(seed); // 🔥 IMPORTANT
+        try {
+            // Utiliser SHA-256 pour générer une seed à partir du mot de passe
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            byte[] hash = digest.digest(password.getBytes());
 
-        for (int x = 0; x < w; x++) {
-            for (int y = 0; y < h; y++) {
+            // Créer SecureRandom avec SHA1PRNG et la seed
+            SecureRandom random = SecureRandom.getInstance("SHA1PRNG");
+            random.setSeed(hash);
 
-                Color c = reader.getColor(x, y);
-
-                int r = (int)(c.getRed() * 255);
-                int g = (int)(c.getGreen() * 255);
-                int b = (int)(c.getBlue() * 255);
-
-                int key = random.nextInt(256);
-
-                int newR = r ^ key;
-                int newG = g ^ key;
-                int newB = b ^ key;
-
-                writer.setColor(x, y, Color.rgb(newR, newG, newB));
+            // Créer une liste des positions de pixels
+            List<Integer> positions = new ArrayList<>();
+            for (int i = 0; i < w * h; i++) {
+                positions.add(i);
             }
+
+            // Mélanger les positions avec le générateur sécurisé
+            Collections.shuffle(positions, new java.util.Random() {
+                @Override
+                public int nextInt(int bound) {
+                    return random.nextInt(bound);
+                }
+            });
+
+            // Appliquer la permutation des pixels
+            for (int i = 0; i < w * h; i++) {
+                int originalX = i % w;
+                int originalY = i / w;
+
+                int newPos = positions.get(i);
+                int newX = newPos % w;
+                int newY = newPos / w;
+
+                Color color = reader.getColor(originalX, originalY);
+                writer.setColor(newX, newY, color);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            // En cas d'erreur, retourner l'image originale
+            return input;
         }
 
         return output;

@@ -14,7 +14,9 @@ import model.filters.PrewittFilter;
 import model.filters.RotateFilter;
 import model.filters.SymmetryFilter;
 import model.filters.EncryptFilter;
-import util.SaveManager;
+import service.ImageService;
+import service.PersistenceService;
+import service.TagService;
 import javafx.scene.control.ListView;
 
 import java.io.File;
@@ -32,31 +34,32 @@ public class MainController {
     @FXML
     private ListView<String> tagList;
 
+    // Services
+    private final ImageService imageService = new ImageService();
+    private final TagService tagService = new TagService();
+    private final PersistenceService persistenceService = new PersistenceService();
+
     @FXML
     public void loadFromJson() {
-        ImageModel loaded = SaveManager.load("data.json");
+        ImageModel loaded = persistenceService.load();
         if (loaded != null) {
             model = loaded;
-            imageView.setImage(model.getImage());
-
-            tagList.getItems().setAll(model.getTags());
+            imageView.setImage(imageService.getImage(model));
+            tagList.getItems().setAll(tagService.getTags(model));
         }
     }
 
     @FXML
     public void addTag() {
-        if (model != null && !tagField.getText().isEmpty()) {
-            model.addTag(tagField.getText());
-            tagList.getItems().setAll(model.getTags());
-            tagField.clear();
-        }
+        String tag = tagField.getText();
+        tagService.addTag(model, tag);
+        tagList.getItems().setAll(tagService.getTags(model));
+        tagField.clear();
     }
 
     @FXML
     public void saveImage() {
-        if (model != null) {
-            SaveManager.save(model, "data.json");
-        }
+        persistenceService.save(model);
     }
 
     @FXML
@@ -66,92 +69,82 @@ public class MainController {
 
         if (file != null) {
             Image img = new Image(file.toURI().toString());
-            model = new ImageModel(img);
+            model = imageService.createImageModel(img);
             imageView.setImage(img);
         }
     }
 
     @FXML
     public void applyGrayscale() {
-        if (model != null) {
-            model.applyFilter(new GrayscaleFilter());
-            imageView.setImage(model.getImage());
-        }
+        imageService.applyFilter(model, new GrayscaleFilter());
+        updateImageView();
     }
+
     @FXML
     public void applySepia() {
-        if (model != null) {
-            model.applyFilter(new SepiaFilter());
-            imageView.setImage(model.getImage());
-        }
+        imageService.applyFilter(model, new SepiaFilter());
+        updateImageView();
     }
 
     @FXML
     public void applyRGBSwap() {
-        if (model != null) {
-            model.applyFilter(new RGBSwapFilter());
-            imageView.setImage(model.getImage());
-        }
+        imageService.applyFilter(model, new RGBSwapFilter());
+        updateImageView();
     }
 
     @FXML
     public void applyPrewitt() {
-        if (model != null) {
-            model.applyFilter(new PrewittFilter());
-            imageView.setImage(model.getImage());
-        }
+        imageService.applyFilter(model, new PrewittFilter());
+        updateImageView();
     }
 
     @FXML
     public void rotateRight() {
-        if (model != null) {
-            model.applyFilter(new RotateFilter(true));
-            imageView.setImage(model.getImage());
-        }
+        imageService.applyFilter(model, new RotateFilter(true));
+        updateImageView();
     }
 
     @FXML
     public void rotateLeft() {
-        if (model != null) {
-            model.applyFilter(new RotateFilter(false));
-            imageView.setImage(model.getImage());
-        }
+        imageService.applyFilter(model, new RotateFilter(false));
+        updateImageView();
     }
 
     @FXML
     public void applyHorizontalSymmetry() {
-        if (model != null) {
-            model.applyFilter(new SymmetryFilter(true));
-            imageView.setImage(model.getImage());
-        }
+        imageService.applyFilter(model, new SymmetryFilter(true));
+        updateImageView();
     }
 
     @FXML
     public void applyVerticalSymmetry() {
-        if (model != null) {
-            model.applyFilter(new SymmetryFilter(false));
-            imageView.setImage(model.getImage());
-        }
+        imageService.applyFilter(model, new SymmetryFilter(false));
+        updateImageView();
     }
 
     @FXML
     public void encryptImage() {
         if (model != null) {
             TextInputDialog dialog = new TextInputDialog();
+            dialog.setTitle("Encrypt/Decrypt");
             dialog.setHeaderText("Enter password");
 
             dialog.showAndWait().ifPresent(password -> {
-                model.applyFilter(new EncryptFilter(password));
-                imageView.setImage(model.getImage());
+                imageService.applyFilter(model, new EncryptFilter(password));
+                updateImageView();
             });
         }
     }
 
     @FXML
     public void resetImage() {
+        imageService.resetImage(model);
+        updateImageView();
+    }
+
+    private void updateImageView() {
         if (model != null) {
-            model.reset();
-            imageView.setImage(model.getImage());
+            imageView.setImage(imageService.getImage(model));
         }
     }
 }
