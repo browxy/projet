@@ -6,6 +6,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Label?>
 <?import javafx.geometry.Insets?>
 
 <HBox spacing="10" xmlns:fx="http://javafx.com/fxml"
@@ -14,16 +15,19 @@
         <Insets top="10" right="10" bottom="10" left="10"/>
     </padding>
 
-
+    <!-- Panneau gauche: Contrôles -->
     <VBox spacing="10" prefWidth="250">
-        <TextField fx:id="tagField" promptText="Ajouter un tag"/>
-        <ListView fx:id="tagList" prefHeight="100"/>
-        <Button text="Add Tag" onAction="#addTag" maxWidth="Infinity"/>
+        <Label text="FICHIER" style="-fx-font-weight: bold;"/>
         <Button text="Charger image" onAction="#loadImage" maxWidth="Infinity"/>
-        <Button text="Save JSON" onAction="#saveImage" maxWidth="Infinity"/>
-        <Button text="Load JSON" onAction="#loadFromJson" maxWidth="Infinity"/>
-        <Button text="Encrypt / Decrypt" onAction="#encryptImage" maxWidth="Infinity"/>
+        <Button text="Save to Library" onAction="#saveToLibrary" maxWidth="Infinity"/>
+        <Button text="Reload Library" onAction="#loadLibrary" maxWidth="Infinity"/>
 
+        <Label text="TAGS" style="-fx-font-weight: bold;"/>
+        <TextField fx:id="tagField" promptText="Ajouter un tag"/>
+        <Button text="Add Tag" onAction="#addTag" maxWidth="Infinity"/>
+        <ListView fx:id="tagList" prefHeight="80"/>
+
+        <Label text="FILTRES" style="-fx-font-weight: bold;"/>
         <Button text="Grayscale" onAction="#applyGrayscale" maxWidth="Infinity"/>
         <Button text="Sepia" onAction="#applySepia" maxWidth="Infinity"/>
         <Button text="RGB Swap" onAction="#applyRGBSwap" maxWidth="Infinity"/>
@@ -32,10 +36,25 @@
         <Button text="Rotate Left" onAction="#rotateLeft" maxWidth="Infinity"/>
         <Button text="Symétrie horizontale" onAction="#applyHorizontalSymmetry" maxWidth="Infinity"/>
         <Button text="Symétrie verticale" onAction="#applyVerticalSymmetry" maxWidth="Infinity"/>
+        <Button text="Encrypt" onAction="#encryptImage" maxWidth="Infinity"/>
+        <Button text="Decrypt" onAction="#decryptImage" maxWidth="Infinity"/>
         <Button text="Reset image" onAction="#resetImage" maxWidth="Infinity"/>
     </VBox>
 
+    <!-- Centre: Image -->
+    <VBox spacing="10" prefWidth="500">
+        <ImageView fx:id="imageView" fitWidth="500" fitHeight="500" preserveRatio="true"/>
+    </VBox>
 
-    <ImageView fx:id="imageView" fitWidth="500" fitHeight="500" preserveRatio="true"/>
+    <!-- Panneau droit: Bibliothèque et recherche -->
+    <VBox spacing="10" prefWidth="250">
+        <Label text="BIBLIOTHÈQUE" style="-fx-font-weight: bold;"/>
+        <TextField fx:id="searchField" promptText="Rechercher par tag..."/>
+        <Button text="Search" onAction="#searchByTag" maxWidth="Infinity"/>
+        <ListView fx:id="libraryList" prefHeight="400"/>
+        <Button text="Load Selected" onAction="#loadSelectedFromLibrary" maxWidth="Infinity"/>
+        <Button text="Delete Selected" onAction="#deleteSelectedFromLibrary" maxWidth="Infinity"/>
+        <Label fx:id="imageInfoLabel" text="" wrapText="true"/>
+    </VBox>
 
 </HBox>
