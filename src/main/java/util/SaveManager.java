@@ -12,7 +12,7 @@ public class SaveManager {
             ObjectMapper mapper = new ObjectMapper();
 
             ImageData data = new ImageData();
-            data.imagePath = model.getImage().getUrl();
+            data.imagePath = model.getImagePath();
             data.tags = model.getTags();
             data.filters = model.getFilterNames();
 
@@ -27,6 +27,11 @@ public class SaveManager {
         try {
             ObjectMapper mapper = new ObjectMapper();
             ImageData data = mapper.readValue(new File(path), ImageData.class);
+
+            if (data.imagePath == null || data.imagePath.isEmpty()) {
+                System.err.println("Image path is null or empty in JSON file");
+                return null;
+            }
 
             ImageModel model = new ImageModel(new Image(data.imagePath));
 

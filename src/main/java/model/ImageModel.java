@@ -8,6 +8,7 @@ public class ImageModel {
 
     private Image image;
     private Image originalImage;
+    private String imagePath;
 
     private List<Filter> filters = new ArrayList<>();
     private List<String> tags = new ArrayList<>();
@@ -15,6 +16,11 @@ public class ImageModel {
     public ImageModel(Image image) {
         this.image = image;
         this.originalImage = image;
+        this.imagePath = image.getUrl();
+    }
+
+    public String getImagePath() {
+        return imagePath;
     }
 
     public Image getImage() {

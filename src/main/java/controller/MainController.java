@@ -37,7 +37,7 @@ public class MainController {
             model = loaded;
             imageView.setImage(model.getImage());
 
-            tagList.getItems().setAll(model.getTags()); // 🔥 sinon vide
+            tagList.getItems().setAll(model.getTags());
         }
     }
 
@@ -45,7 +45,7 @@ public class MainController {
     public void addTag() {
         if (model != null && !tagField.getText().isEmpty()) {
             model.addTag(tagField.getText());
-            tagList.getItems().setAll(model.getTags()); // 🔥 important
+            tagList.getItems().setAll(model.getTags());
             tagField.clear();
         }
     }
