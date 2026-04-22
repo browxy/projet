@@ -11,6 +11,7 @@
     <Button text="Grayscale" onAction="#applyGrayscale"/>
     <Button text="Sepia" onAction="#applySepia"/>
     <Button text="RGB Swap" onAction="#applyRGBSwap"/>
+    <Button text="Prewitt (Contours)" onAction="#applyPrewitt"/>
     <Button text="Rotate Right" onAction="#rotateRight"/>
     <Button text="Rotate Left" onAction="#rotateLeft"/>
     <Button text="Symétrie horizontale" onAction="#applyHorizontalSymmetry"/>

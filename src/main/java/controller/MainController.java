@@ -8,6 +8,7 @@ import model.ImageModel;
 import model.filters.GrayscaleFilter;
 import model.filters.SepiaFilter;
 import model.filters.RGBSwapFilter;
+import model.filters.PrewittFilter;
 import model.filters.RotateFilter;
 import model.filters.SymmetryFilter;
 
@@ -51,6 +52,14 @@ public class MainController {
     public void applyRGBSwap() {
         if (model != null) {
             model.applyFilter(new RGBSwapFilter());
+            imageView.setImage(model.getImage());
+        }
+    }
+
+    @FXML
+    public void applyPrewitt() {
+        if (model != null) {
+            model.applyFilter(new PrewittFilter());
             imageView.setImage(model.getImage());
         }
     }
