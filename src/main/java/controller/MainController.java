@@ -32,7 +32,7 @@ public class MainController {
     private ImageView imageView;
 
     @FXML
-    private ListView<String> tagList;
+    private Label tagList;
 
     @FXML
     private ListView<String> libraryList;
@@ -59,8 +59,21 @@ public class MainController {
     public void addTag() {
         String tag = tagField.getText();
         tagService.addTag(model, tag);
-        tagList.getItems().setAll(tagService.getTags(model));
+        updateTagDisplay();
         tagField.clear();
+    }
+
+    private void updateTagDisplay() {
+        if (model != null) {
+            List<String> tags = tagService.getTags(model);
+            if (tags.isEmpty()) {
+                tagList.setText("Aucun tag");
+            } else {
+                tagList.setText(String.join(", ", tags));
+            }
+        } else {
+            tagList.setText("Aucune image chargée");
+        }
     }
 
     @FXML
@@ -127,7 +140,7 @@ public class MainController {
                     }
 
                     imageView.setImage(model.getImage());
-                    tagList.getItems().setAll(tagService.getTags(model));
+                    updateTagDisplay();
                     updateImageInfo("Chargé: " + data.fileName + " (" + data.width + "x" + data.height + ")");
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -209,6 +222,7 @@ public class MainController {
             Image img = new Image(file.toURI().toString());
             model = imageService.createImageModel(img);
             imageView.setImage(img);
+            updateTagDisplay();
         }
     }
 

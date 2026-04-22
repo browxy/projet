@@ -7,6 +7,7 @@
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.geometry.Insets?>
 
 <HBox spacing="10" xmlns:fx="http://javafx.com/fxml"
@@ -15,46 +16,65 @@
         <Insets top="10" right="10" bottom="10" left="10"/>
     </padding>
 
-    <!-- Panneau gauche: Contrôles -->
-    <VBox spacing="10" prefWidth="250">
-        <Label text="FICHIER" style="-fx-font-weight: bold;"/>
-        <Button text="Charger image" onAction="#loadImage" maxWidth="Infinity"/>
-        <Button text="Save to Library" onAction="#saveToLibrary" maxWidth="Infinity"/>
-        <Button text="Reload Library" onAction="#loadLibrary" maxWidth="Infinity"/>
+    <!-- Panneau gauche: Contrôles avec ScrollPane -->
+    <ScrollPane fitToWidth="true" prefWidth="270" hbarPolicy="NEVER" style="-fx-background-color: transparent;">
+        <VBox spacing="12" prefWidth="250" styleClass="panel">
+        <!-- FICHIER -->
+        <Label text="📁 FICHIER" styleClass="section-label"/>
+        <Button text="Charger Image" onAction="#loadImage" maxWidth="Infinity" styleClass="btn-file"/>
+        <Button text="Sauvegarder" onAction="#saveToLibrary" maxWidth="Infinity" styleClass="btn-file"/>
+        <Button text="Recharger Bibliothèque" onAction="#loadLibrary" maxWidth="Infinity" styleClass="btn-file"/>
 
-        <Label text="TAGS" style="-fx-font-weight: bold;"/>
-        <TextField fx:id="tagField" promptText="Ajouter un tag"/>
-        <Button text="Add Tag" onAction="#addTag" maxWidth="Infinity"/>
-        <ListView fx:id="tagList" prefHeight="80"/>
 
-        <Label text="FILTRES" style="-fx-font-weight: bold;"/>
-        <Button text="Grayscale" onAction="#applyGrayscale" maxWidth="Infinity"/>
-        <Button text="Sepia" onAction="#applySepia" maxWidth="Infinity"/>
-        <Button text="RGB Swap" onAction="#applyRGBSwap" maxWidth="Infinity"/>
-        <Button text="Prewitt (Contours)" onAction="#applyPrewitt" maxWidth="Infinity"/>
-        <Button text="Rotate Right" onAction="#rotateRight" maxWidth="Infinity"/>
-        <Button text="Rotate Left" onAction="#rotateLeft" maxWidth="Infinity"/>
-        <Button text="Symétrie horizontale" onAction="#applyHorizontalSymmetry" maxWidth="Infinity"/>
-        <Button text="Symétrie verticale" onAction="#applyVerticalSymmetry" maxWidth="Infinity"/>
-        <Button text="Encrypt" onAction="#encryptImage" maxWidth="Infinity"/>
-        <Button text="Decrypt" onAction="#decryptImage" maxWidth="Infinity"/>
-        <Button text="Reset image" onAction="#resetImage" maxWidth="Infinity"/>
-    </VBox>
+        <!-- FILTRES COULEUR -->
+        <Label text="🎨 FILTRES COULEUR" styleClass="section-label" style="-fx-padding: 12 0 4 0;"/>
+        <Button text="Noir et Blanc" onAction="#applyGrayscale" maxWidth="Infinity" styleClass="btn-filter-color"/>
+        <Button text="Sepia" onAction="#applySepia" maxWidth="Infinity" styleClass="btn-filter-color"/>
+        <Button text="Échange RGB" onAction="#applyRGBSwap" maxWidth="Infinity" styleClass="btn-filter-color"/>
+        <Button text="Contours (Prewitt)" onAction="#applyPrewitt" maxWidth="Infinity" styleClass="btn-filter-color"/>
 
-    <!-- Centre: Image -->
-    <VBox spacing="10" prefWidth="500">
-        <ImageView fx:id="imageView" fitWidth="500" fitHeight="500" preserveRatio="true"/>
+        <!-- TRANSFORMATIONS -->
+        <Label text="🔄 TRANSFORMATIONS" styleClass="section-label" style="-fx-padding: 12 0 4 0;"/>
+        <Button text="↻ Rotation Droite" onAction="#rotateRight" maxWidth="Infinity" styleClass="btn-filter-geometry"/>
+        <Button text="↺ Rotation Gauche" onAction="#rotateLeft" maxWidth="Infinity" styleClass="btn-filter-geometry"/>
+        <Button text="⇆ Symétrie Horizontale" onAction="#applyHorizontalSymmetry" maxWidth="Infinity" styleClass="btn-filter-geometry"/>
+        <Button text="⇅ Symétrie Verticale" onAction="#applyVerticalSymmetry" maxWidth="Infinity" styleClass="btn-filter-geometry"/>
+
+        <!-- SÉCURITÉ -->
+        <Label text="🔒 SÉCURITÉ" styleClass="section-label" style="-fx-padding: 12 0 4 0;"/>
+        <Button text="🔐 Chiffrer" onAction="#encryptImage" maxWidth="Infinity" styleClass="btn-security"/>
+        <Button text="🔓 Déchiffrer" onAction="#decryptImage" maxWidth="Infinity" styleClass="btn-security"/>
+
+        <!-- ACTIONS -->
+        <Label text="⚙️ ACTIONS" styleClass="section-label" style="-fx-padding: 12 0 4 0;"/>
+        <Button text="↶ Réinitialiser" onAction="#resetImage" maxWidth="Infinity" styleClass="btn-reset"/>
+        </VBox>
+    </ScrollPane>
+
+    <!-- Centre: Image et Tags -->
+    <VBox spacing="10" prefWidth="520" styleClass="panel">
+        <VBox alignment="CENTER" prefWidth="500" prefHeight="500" minWidth="500" minHeight="500" maxWidth="500" maxHeight="500" style="-fx-background-color: #F5F5F5; -fx-border-color: #E0E0E0; -fx-border-width: 1; -fx-border-radius: 6; -fx-background-radius: 6;">
+            <ImageView fx:id="imageView" fitWidth="500" fitHeight="500" preserveRatio="true"/>
+        </VBox>
+
+        <!-- TAGS de l'image courante -->
+        <Label text="🏷️ TAGS DE L'IMAGE" styleClass="section-label"/>
+        <HBox spacing="8">
+            <TextField fx:id="tagField" promptText="Ajouter un tag..." HBox.hgrow="ALWAYS"/>
+            <Button text="+" onAction="#addTag" styleClass="btn-tag" prefWidth="40"/>
+        </HBox>
+        <Label fx:id="tagList" text="Aucun tag" wrapText="true" styleClass="info-label" style="-fx-font-size: 13px; -fx-padding: 8; -fx-background-color: #F5F5F5; -fx-background-radius: 6; -fx-border-color: #E0E0E0; -fx-border-radius: 6; -fx-border-width: 1;"/>
     </VBox>
 
     <!-- Panneau droit: Bibliothèque et recherche -->
-    <VBox spacing="10" prefWidth="250">
-        <Label text="BIBLIOTHÈQUE" style="-fx-font-weight: bold;"/>
-        <TextField fx:id="searchField" promptText="Rechercher par tag..."/>
-        <Button text="Search" onAction="#searchByTag" maxWidth="Infinity"/>
-        <ListView fx:id="libraryList" prefHeight="400"/>
-        <Button text="Load Selected" onAction="#loadSelectedFromLibrary" maxWidth="Infinity"/>
-        <Button text="Delete Selected" onAction="#deleteSelectedFromLibrary" maxWidth="Infinity"/>
-        <Label fx:id="imageInfoLabel" text="" wrapText="true"/>
+    <VBox spacing="12" prefWidth="260" styleClass="panel">
+        <Label text="📚 BIBLIOTHÈQUE" styleClass="section-label"/>
+        <TextField fx:id="searchField" promptText="🔍 Rechercher par tag..."/>
+        <Button text="Rechercher" onAction="#searchByTag" maxWidth="Infinity" styleClass="btn-tag"/>
+        <ListView fx:id="libraryList" prefHeight="440"/>
+        <Button text="📂 Charger Sélection" onAction="#loadSelectedFromLibrary" maxWidth="Infinity" styleClass="btn-file"/>
+        <Button text="🗑️ Supprimer" onAction="#deleteSelectedFromLibrary" maxWidth="Infinity" styleClass="btn-reset"/>
+        <Label fx:id="imageInfoLabel" text="" wrapText="true" styleClass="info-label"/>
     </VBox>
 
 </HBox>

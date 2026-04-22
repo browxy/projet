@@ -8,11 +8,14 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/main.fxml"));
-        Scene scene = new Scene(loader.load(), 1100, 650);
+        Scene scene = new Scene(loader.load(), 1120, 700);
+
+        // Appliquer le CSS
+        scene.getStylesheets().add(getClass().getResource("/style.css").toExternalForm());
 
         stage.setTitle("Image Manager - Bibliothèque");
-        stage.setMinWidth(1100);
-        stage.setMinHeight(650);
+        stage.setMinWidth(1120);
+        stage.setMinHeight(700);
         stage.setScene(scene);
         stage.show();
     }

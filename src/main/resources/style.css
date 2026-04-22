@@ -1,0 +1,168 @@
+/* ========== GÉNÉRAL ========== */
+.root {
+    -fx-font-family: "Segoe UI", "Arial", sans-serif;
+    -fx-font-size: 13px;
+}
+
+/* ========== LABELS DE SECTION ========== */
+.section-label {
+    -fx-font-weight: bold;
+    -fx-font-size: 12px;
+    -fx-text-fill: #424242;
+    -fx-padding: 8 0 4 0;
+}
+
+/* ========== BOUTONS - BASE ========== */
+.button {
+    -fx-background-radius: 6;
+    -fx-border-radius: 6;
+    -fx-padding: 8 16;
+    -fx-font-size: 12px;
+    -fx-font-weight: 500;
+    -fx-cursor: hand;
+    -fx-text-fill: white;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 4, 0, 0, 2);
+}
+
+.button:hover {
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.25), 6, 0, 0, 3);
+    -fx-scale-y: 1.02;
+}
+
+.button:pressed {
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 2, 0, 0, 1);
+    -fx-scale-y: 0.98;
+}
+
+/* ========== CATÉGORIES DE BOUTONS ========== */
+
+/* Fichier - Bleu */
+.btn-file {
+    -fx-background-color: linear-gradient(to bottom, #2196F3, #1976D2);
+}
+.btn-file:hover {
+    -fx-background-color: linear-gradient(to bottom, #42A5F5, #1E88E5);
+}
+
+/* Tags - Vert */
+.btn-tag {
+    -fx-background-color: linear-gradient(to bottom, #4CAF50, #388E3C);
+}
+.btn-tag:hover {
+    -fx-background-color: linear-gradient(to bottom, #66BB6A, #43A047);
+}
+
+/* Filtres Couleur - Orange */
+.btn-filter-color {
+    -fx-background-color: linear-gradient(to bottom, #FF9800, #F57C00);
+}
+.btn-filter-color:hover {
+    -fx-background-color: linear-gradient(to bottom, #FFA726, #FB8C00);
+}
+
+/* Filtres Géométrie - Violet */
+.btn-filter-geometry {
+    -fx-background-color: linear-gradient(to bottom, #9C27B0, #7B1FA2);
+}
+.btn-filter-geometry:hover {
+    -fx-background-color: linear-gradient(to bottom, #AB47BC, #8E24AA);
+}
+
+/* Sécurité - Rouge */
+.btn-security {
+    -fx-background-color: linear-gradient(to bottom, #F44336, #D32F2F);
+}
+.btn-security:hover {
+    -fx-background-color: linear-gradient(to bottom, #EF5350, #E53935);
+}
+
+/* Reset - Gris */
+.btn-reset {
+    -fx-background-color: linear-gradient(to bottom, #607D8B, #455A64);
+}
+.btn-reset:hover {
+    -fx-background-color: linear-gradient(to bottom, #78909C, #546E7A);
+}
+
+/* ========== CHAMPS DE TEXTE ========== */
+.text-field {
+    -fx-background-radius: 6;
+    -fx-border-radius: 6;
+    -fx-border-color: #BDBDBD;
+    -fx-border-width: 1;
+    -fx-padding: 6 10;
+}
+
+.text-field:focused {
+    -fx-border-color: #2196F3;
+    -fx-border-width: 2;
+}
+
+/* ========== LISTES ========== */
+.list-view {
+    -fx-background-radius: 6;
+    -fx-border-radius: 6;
+    -fx-border-color: #E0E0E0;
+    -fx-border-width: 1;
+}
+
+.list-view .list-cell {
+    -fx-background-color: transparent;
+    -fx-padding: 6 10;
+}
+
+.list-view .list-cell:selected {
+    -fx-background-color: #2196F3;
+    -fx-text-fill: white;
+}
+
+.list-view .list-cell:hover {
+    -fx-background-color: #E3F2FD;
+}
+
+/* ========== LABELS INFO ========== */
+.info-label {
+    -fx-text-fill: #616161;
+    -fx-font-size: 11px;
+    -fx-padding: 8 0 0 0;
+}
+
+/* ========== PANNEAUX ========== */
+.panel {
+    -fx-background-color: #FAFAFA;
+    -fx-background-radius: 8;
+    -fx-padding: 12;
+}
+
+/* ========== SÉPARATEURS ========== */
+.separator {
+    -fx-background-color: #E0E0E0;
+    -fx-padding: 4 0;
+}
+
+/* ========== SCROLLPANE ========== */
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane .scroll-bar:vertical {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane .scroll-bar:vertical .thumb {
+    -fx-background-color: #BDBDBD;
+    -fx-background-radius: 4;
+}
+
+.scroll-pane .scroll-bar:vertical .thumb:hover {
+    -fx-background-color: #9E9E9E;
+}
+
+.scroll-pane .scroll-bar:vertical .track {
+    -fx-background-color: transparent;
+}
