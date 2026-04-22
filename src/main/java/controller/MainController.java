@@ -1,6 +1,7 @@
 package controller;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
@@ -17,9 +18,20 @@ import java.io.File;
 public class MainController {
 
     @FXML
+    private TextField tagField;
+
+    @FXML
     private ImageView imageView;
 
     private ImageModel model;
+
+    @FXML
+    public void addTag() {
+        if (model != null && !tagField.getText().isEmpty()) {
+            model.addTag(tagField.getText());
+            tagField.clear();
+        }
+    }
 
     @FXML
     public void loadImage() {
