@@ -10,6 +10,7 @@ import javafx.stage.FileChooser;
 import model.ImageData;
 import model.ImageLibrary;
 import model.ImageModel;
+import model.Filter;
 import model.filters.*;
 import service.ImageService;
 import service.PersistenceService;
@@ -135,7 +136,17 @@ public class MainController {
                     // Réappliquer les filtres sauvegardés
                     if (data.filters != null) {
                         for (String filterName : data.filters) {
-                            applyFilterByName(filterName);
+                            if (filterName.equals("Encrypt")) {
+                                // L'image est déjà chiffrée sur le disque
+                                // On ajoute juste un "marqueur" dans le modèle sans l'appliquer
+                                Filter marker = new Filter() {
+                                    @Override public Image apply(Image input) { return input; }
+                                    @Override public String getName() { return "Encrypt"; }
+                                };
+                                model.applyEncryptFilter(marker);
+                            } else {
+                                applyFilterByName(filterName);
+                            }
                         }
                     }
 
@@ -282,8 +293,9 @@ public class MainController {
             dialog.setHeaderText("Enter password to encrypt");
 
             dialog.showAndWait().ifPresent(password -> {
-                imageService.applyFilter(model, new EncryptFilter(password));
+                imageService.applyEncryptFilter(model, new EncryptFilter(password));
                 updateImageView();
+                updateImageInfo("Image sécurisée et sauvegardée");
             });
         }
     }
@@ -296,8 +308,9 @@ public class MainController {
             dialog.setHeaderText("Enter password to decrypt");
 
             dialog.showAndWait().ifPresent(password -> {
-                imageService.applyFilter(model, new DecryptFilter(password));
+                imageService.applyDecryptFilter(model, new DecryptFilter(password));
                 updateImageView();
+                updateImageInfo("Image déchiffrée et restaurée");
             });
         }
     }

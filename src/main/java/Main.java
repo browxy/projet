@@ -13,7 +13,7 @@ public class Main extends Application {
         // Appliquer le CSS
         scene.getStylesheets().add(getClass().getResource("/style.css").toExternalForm());
 
-        stage.setTitle("Image Manager - Bibliothèque");
+        stage.setTitle("Image Manager");
         stage.setMinWidth(1120);
         stage.setMinHeight(700);
         stage.setScene(scene);

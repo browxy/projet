@@ -32,6 +32,23 @@ public class ImageModel {
         filters.add(filter);
     }
 
+    public void applyEncryptFilter(Filter encryptFilter) {
+        image = encryptFilter.apply(originalImage);
+        originalImage = image; // L'image encryptée DEVIENT l'image d'origine
+        
+        // On ne garde que "Encrypt" (et les autres filtres appliqués avant sont maintenant "cuits" dans l'image d'origine)
+        filters.clear();
+        filters.add(encryptFilter); 
+    }
+
+    public void applyDecryptFilter(Filter decryptFilter) {
+        image = decryptFilter.apply(originalImage);
+        originalImage = image; // L'image decryptée DEVIENT la nouvelle image d'origine
+        
+        // On retire le filtre Encrypt
+        filters.removeIf(f -> f.getName().equals("Encrypt"));
+    }
+
     public List<String> getFilterNames() {
         List<String> names = new ArrayList<>();
         for (Filter f : filters) {

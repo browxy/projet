@@ -71,14 +71,14 @@ src/
 - **JavaFX 23** : Interface graphique
 - **Jackson 2.17** : Sérialisation JSON
 - **Maven** : Gestion des dépendances
-- **Java 26** : Langage
+- **Java 21** : Langage
 
 ## 🚀 Installation
 
 ### Prérequis
-- JDK 26
+- JDK 21
 - Maven
-- JavaFX SDK 26
+- JavaFX SDK 23
 
 ### Compilation
 ```bash

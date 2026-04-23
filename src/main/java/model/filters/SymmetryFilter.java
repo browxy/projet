@@ -27,10 +27,10 @@ public class SymmetryFilter implements Filter {
                 Color color = reader.getColor(x, y);
 
                 if (horizontal) {
-                    // miroir gauche ↔ droite
+                    // miroir gauche/droite
                     writer.setColor(w - 1 - x, y, color);
                 } else {
-                    // miroir haut ↔ bas
+                    // miroir haut/bas
                     writer.setColor(x, h - 1 - y, color);
                 }
             }
