@@ -34,19 +34,6 @@ public class ImageLibrary {
         return new ArrayList<>(images);
     }
 
-    @JsonIgnore
-    public List<ImageData> searchByTag(String tag) {
-        return images.stream()
-                .filter(img -> img.tags != null && img.tags.contains(tag))
-                .collect(Collectors.toList());
-    }
-
-    @JsonIgnore
-    public List<ImageData> searchByFileName(String fileName) {
-        return images.stream()
-                .filter(img -> img.fileName != null && img.fileName.contains(fileName))
-                .collect(Collectors.toList());
-    }
 
     @JsonIgnore
     public ImageData findByPath(String path) {
