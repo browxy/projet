@@ -1,45 +1,176 @@
-# Image Manager
+# Image Manager - Bibliothèque d'Images
 
-Application de gestion et de traitement d'images en JavaFX.
+Projet POO Java 2025-2026
 
-## Fonctionnalités
+## 📋 Description
 
-*   **Gestion de Fichiers** : Chargement d'images, sauvegarde dans une bibliothèque locale, et rechargement.
-*   **Filtres de Couleur** : 
-    *   Noir et Blanc
-    *   Sépia
-    *   Échange RGB
-    *   Contours (Filtre de Prewitt)
-*   **Transformations Géométriques** :
-    *   Rotations 
-    *   Symétries (horizontale et verticale)
-*   **Sécurité** : Chiffrement et déchiffrement des images sauvegardées par mot de passe.
-*   **Tags & Bibliothèque** : Ajout de tags aux images, sauvegarde en bibliothèque et recherche rapide par tag.
-*   **Interface Moderne** : Interface divisée en panneaux (Fichiers/Filtres, Image, Bibliothèque) pour une meilleure ergonomie.
+Application JavaFX de gestion de bibliothèque d'images avec système de tags, filtres avancés et chiffrement sécurisé.
 
-## Architecture (MVC)
+## ✨ Fonctionnalités
 
-Le projet suit le patron de conception Modèle-Vue-Contrôleur (MVC) pour garantir un code propre et maintenable. Le code est organisé sous le package racine `com.imagemanager` :
+### 🖼️ Gestion d'Images
+- Chargement d'images depuis le système de fichiers
+- Affichage en temps réel
+- Bibliothèque centralisée avec métadonnées
 
-*   **Modèle (`src/main/java/com/imagemanager/model/`)** : Contient les données (ImageModel, ImageData, ImageLibrary) et les classes implémentant l'application des filtres (`filters/`).
-*   **Vue (`src/main/resources/com/imagemanager/`)** : L'interface utilisateur est construite en JavaFX avec des fichiers FXML modulaires situés dans le dossier `view/` (`main.fxml`, `filters_panel.fxml`, `library_panel.fxml`). Le style est géré via la feuille CSS dans `style/style.css`.
-*   **Contrôleur (`src/main/java/com/imagemanager/controller/`)** : Gère les interactions utilisateur, réparti de manière experte entre :
-    *   `MainController` (gestion de l'image et liens entre les composants)
-    *   `FilterController` (gestion des actions liées aux filtres et transformations)
-    *   `LibraryController` (gestion et recherche intra-bibliothèque)
-*   **Services (`src/main/java/com/imagemanager/service/`)** : Isole la logique métier (ImageService, PersistenceService, TagService) pour éviter de surcharger les contrôleurs.
-*   **Utilitaires (`src/main/java/com/imagemanager/util/`)** : Outillage global du projet comme SaveManager par exemple.
-*   **Point d'entrée** : À la racine de `src/main/java/com/imagemanager/`, vous trouverez `Main.java`, la classe principale de l'Application JavaFX.
+### 🏷️ Système de Tags
+- Ajout de tags personnalisés
+- Recherche d'images par tags
+- Affichage des tags associés
 
-## Prérequis
+### 🎨 Filtres
+- **Grayscale** : Conversion en niveaux de gris
+- **Sepia** : Effet sépia
+- **RGB Swap** : Échange des composantes RGB → GBR
+- **Prewitt** : Détection de contours
+- **Rotation** : Rotation droite/gauche (90°)
+- **Symétrie** : Miroir horizontal/vertical
 
-*   Java JDK 21 (ou supérieur)
-*   Maven 3.x
+### 🔐 Sécurité
+- **Chiffrement** : Mélange sécurisé des pixels avec SHA-256 + SecureRandom
+- **Déchiffrement** : Restauration avec le mot de passe correct
 
-## Compilation et Exécution
+### 💾 Persistance
+- Sauvegarde JSON avec Jackson
+- Métadonnées : nom, tags, filtres, dimensions, dates
+- Bibliothèque complète dans `library.json` (créé/lu dans le répertoire d’exécution de l’application)
 
-Ouvrez un terminal à la racine du projet (là où se trouve le `pom.xml`) et exécutez la commande suivante :
+## 🏗️ Architecture
 
+Le projet suit une architecture **MVC** avec une séparation claire entre :
+- **Modèle** : données + logique de traitement (filtres, bibliothèque, métadonnées)
+- **Vue** : interfaces JavaFX modulaires (FXML + CSS)
+- **Contrôleurs** : gestion des événements UI répartie par panneaux et coordination avec les services
+- **Services** : logique métier (chargement, tags, persistance)
+
+### Structure (réelle du projet)
+
+```
+src/
+└── main/
+    ├── java/
+    │   └── com/
+    │       └── imagemanager/
+    │           ├── Main.java
+    │           ├── controller/
+    │           │   ├── FilterController.java
+    │           │   ├── LibraryController.java
+    │           │   └── MainController.java
+    │           ├── model/
+    │           │   ├── Filter.java
+    │           │   ├── ImageData.java
+    │           │   ├── ImageLibrary.java
+    │           │   ├── ImageModel.java
+    │           │   └── filters/
+    │           │       ├── DecryptFilter.java
+    │           │       ├── EncryptFilter.java
+    │           │       ├── GrayscaleFilter.java
+    │           │       ├── PrewittFilter.java
+    │           │       ├── RGBSwapFilter.java
+    │           │       ├── RotateFilter.java
+    │           │       ├── SepiaFilter.java
+    │           │       └── SymmetryFilter.java
+    │           ├── service/
+    │           │   ├── ImageService.java
+    │           │   ├── PersistenceService.java
+    │           │   └── TagService.java
+    │           └── util/
+    │               └── SaveManager.java
+    └── resources/
+        └── com/
+            └── imagemanager/
+                ├── style/
+                │   └── style.css
+                └── view/
+                    ├── filters_panel.fxml
+                    ├── library_panel.fxml
+                    └── main.fxml
+```
+
+### Flux principal
+
+1. `Main.java` démarre JavaFX, charge `com/imagemanager/view/main.fxml` et applique `com/imagemanager/style/style.css`.
+2. L'interface est désormais modulaire : `main.fxml` inclut les sous-vues `filters_panel.fxml` et `library_panel.fxml`. Les actions sont respectivement mappées vers `MainController`, `FilterController` et `LibraryController`.
+3. Au démarrage (`initialize()`), `LibraryController` charge automatiquement la bibliothèque via `PersistenceService.loadLibrary()` et met à jour la `ListView`.
+4. Les contrôleurs délèguent la logique métier aux **services** (ImageService/TagService/PersistenceService) et manipulent les **modèles** (`ImageModel`, `ImageLibrary`, `ImageData`).
+5. La persistance JSON est gérée par :
+   - `PersistenceService` (conversion / orchestration)
+   - `SaveManager` (lecture/écriture JSON via Jackson)
+   et utilise `library.json` dans le répertoire d’exécution.
+
+## 🛠️ Technologies
+
+- **JavaFX 23** : Interface graphique
+- **Jackson 2.17** : Sérialisation JSON
+- **Maven** : Gestion des dépendances
+- **Java 21** : Langage
+
+## 🚀 Installation
+
+### Prérequis
+- JDK 21
+- Maven
+- JavaFX SDK 23
+
+### Compilation
 ```bash
-mvn clean javafx:run
+mvn clean compile
+```
+
+### Exécution
+```bash
+mvn javafx:run
+```
+
+## 📖 Utilisation
+
+### 1. Charger une image
+Cliquez sur **"Charger image"** et sélectionnez un fichier
+
+### 2. Appliquer des filtres
+Utilisez les boutons dans la section **FILTRES**
+
+### 3. Ajouter des tags
+- Tapez un tag dans le champ texte
+- Cliquez sur **"Add Tag"**
+
+### 4. Sauvegarder dans la bibliothèque
+Cliquez sur **"Save to Library"**
+
+### 5. Rechercher par tag
+- Tapez un tag dans le champ de recherche
+- Cliquez sur **"Search"**
+
+### 6. Chiffrer/Déchiffrer
+- **Encrypt** : Entrez un mot de passe pour chiffrer
+- **Decrypt** : Utilisez le même mot de passe pour déchiffrer
+
+## 🔒 Sécurité
+
+### Algorithme de chiffrement
+1. Hash du mot de passe avec **SHA-256**
+2. Génération de seed pour **SecureRandom (SHA1PRNG)**
+3. Permutation déterministe des pixels
+4. Déchiffrement via permutation inverse
+
+## 📦 Dépendances
+
+```xml
+<dependencies>
+    <dependency>
+        <groupId>org.openjfx</groupId>
+        <artifactId>javafx-controls</artifactId>
+        <version>23.0.2</version>
+    </dependency>
+    <dependency>
+        <groupId>org.openjfx</groupId>
+        <artifactId>javafx-fxml</artifactId>
+        <version>23.0.2</version>
+    </dependency>
+    <dependency>
+        <groupId>com.fasterxml.jackson.core</groupId>
+        <artifactId>jackson-databind</artifactId>
+        <version>2.17.0</version>
+    </dependency>
+</dependencies>
 ```
