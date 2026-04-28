@@ -28,10 +28,10 @@
 
         <!-- FILTRES COULEUR -->
         <Label text="🎨 FILTRES COULEUR" styleClass="section-label" style="-fx-padding: 12 0 4 0;"/>
-        <Button text="Noir et Blanc" onAction="#applyGrayscale" maxWidth="Infinity" styleClass="btn-filter-color"/>
-        <Button text="Sepia" onAction="#applySepia" maxWidth="Infinity" styleClass="btn-filter-color"/>
-        <Button text="Échange RGB" onAction="#applyRGBSwap" maxWidth="Infinity" styleClass="btn-filter-color"/>
-        <Button text="Contours (Prewitt)" onAction="#applyPrewitt" maxWidth="Infinity" styleClass="btn-filter-color"/>
+        <Button text="Noir et Blanc" onAction="#applyGrayscale" maxWidth="Infinity" styleClass="btn-filter-grayscale"/>
+        <Button text="Sepia" onAction="#applySepia" maxWidth="Infinity" styleClass="btn-filter-sepia"/>
+        <Button text="Échange RGB" onAction="#applyRGBSwap" maxWidth="Infinity" styleClass="btn-filter-rgb"/>
+        <Button text="Contours (Prewitt)" onAction="#applyPrewitt" maxWidth="Infinity" styleClass="btn-filter-prewitt"/>
 
         <!-- TRANSFORMATIONS -->
         <Label text="🔄 TRANSFORMATIONS" styleClass="section-label" style="-fx-padding: 12 0 4 0;"/>

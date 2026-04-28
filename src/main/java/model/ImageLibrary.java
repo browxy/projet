@@ -12,7 +12,6 @@ public class ImageLibrary {
         this.images = new ArrayList<>();
     }
 
-    // Getters et Setters pour Jackson
     public List<ImageData> getImages() {
         return images;
     }
@@ -41,20 +40,6 @@ public class ImageLibrary {
                 .collect(Collectors.toList());
     }
 
-    @JsonIgnore
-    public List<ImageData> searchByFileName(String fileName) {
-        return images.stream()
-                .filter(img -> img.fileName != null && img.fileName.contains(fileName))
-                .collect(Collectors.toList());
-    }
-
-    @JsonIgnore
-    public ImageData findByPath(String path) {
-        return images.stream()
-                .filter(img -> img.imagePath != null && img.imagePath.equals(path))
-                .findFirst()
-                .orElse(null);
-    }
 
     @JsonIgnore
     public int size() {
