@@ -1,12 +1,53 @@
-# Dossiers de compilation 
+# --- Compilation & Build ---
+target/
 out/
 bin/
-target/
+build/
+*.class
+*.jar
+*.war
+*.ear
 
-# Configuration IntelliJ 
+# --- Maven ---
+.mvn/
+dependency-reduced-pom.xml
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+maven_output*.log
+
+# --- Fichiers d'Environnement de l'Application ---
+library.json
+
+# --- VS Code ---
+.vscode/
+*.code-workspace
+.history/
+
+# --- IntelliJ IDEA ---
 .idea/
 *.iml
+*.iws
+out/
 
-# Fichiers système
+# --- Eclipse ---
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+# --- OS & Système ---
 .DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
 Thumbs.db
+Desktop.ini
+$RECYCLE.BIN/

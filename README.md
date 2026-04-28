@@ -2,38 +2,44 @@
 
 Application de gestion et de traitement d'images en JavaFX.
 
-## FonctionnalitÈs
+## Fonctionnalit√©s
 
-*   **Gestion de Fichiers** : Chargement d'images, sauvegarde dans une bibliothËque locale, et rechargement.
+*   **Gestion de Fichiers** : Chargement d'images, sauvegarde dans une biblioth√®que locale, et rechargement.
 *   **Filtres de Couleur** : 
     *   Noir et Blanc
-    *   SÈpia
-    *   …change RGB
+    *   S√©pia
+    *   √âchange RGB
     *   Contours (Filtre de Prewitt)
-*   **Transformations GÈomÈtriques** :
+*   **Transformations G√©om√©triques** :
     *   Rotations 
-    *   SymÈtries (horizontale et verticale)
-*   **SÈcuritÈ** : Chiffrement et dÈchiffrement des images sauvegardÈes par mot de passe.
-*   **Tags & BibliothËque** : Ajout de tags aux images, sauvegarde en bibliothËque et recherche rapide par tag.
-*   **Interface Moderne** : ThËme sombre (Dark mode) intÈgrÈ et interface divisÈe en panneaux pour une meilleure ergonomie.
+    *   Sym√©tries (horizontale et verticale)
+*   **S√©curit√©** : Chiffrement et d√©chiffrement des images sauvegard√©es par mot de passe.
+*   **Tags & Biblioth√®que** : Ajout de tags aux images, sauvegarde en biblioth√®que et recherche rapide par tag.
+*   **Interface Moderne** : Interface divis√©e en panneaux (Fichiers/Filtres, Image, Biblioth√®que) pour une meilleure ergonomie.
 
 ## Architecture (MVC)
 
-Le projet suit le patron de conception ModËle-Vue-ContrÙleur (MVC) pour garantir un code propre et maintenable :
-*   **ModËle (`src/main/java/model/`)** : Contient les donnÈes (ImageModel, ImageData) et la logique des filtres.
-*   **Vue (`src/main/resources/`)** : Fichiers FXML fractionnÈs (`main.fxml`, `left_panel.fxml`, etc.) et feuille de style `style.css`.
-*   **ContrÙleur (`src/main/java/controller/`)** : GËre les interactions utilisateur, avec un contrÙleur principal et des sous-contrÙleurs par panneau.
-*   **Services (`src/main/java/service/`)** : Isoler la logique mÈtier (ImageService, PersistenceService, TagService).
+Le projet suit le patron de conception Mod√®le-Vue-Contr√¥leur (MVC) pour garantir un code propre et maintenable. Le code est organis√© sous le package racine `com.imagemanager` :
 
-## PrÈrequis
+*   **Mod√®le (`src/main/java/com/imagemanager/model/`)** : Contient les donn√©es (ImageModel, ImageData, ImageLibrary) et les classes impl√©mentant l'application des filtres (`filters/`).
+*   **Vue (`src/main/resources/com/imagemanager/`)** : L'interface utilisateur est construite en JavaFX avec des fichiers FXML modulaires situ√©s dans le dossier `view/` (`main.fxml`, `filters_panel.fxml`, `library_panel.fxml`). Le style est g√©r√© via la feuille CSS dans `style/style.css`.
+*   **Contr√¥leur (`src/main/java/com/imagemanager/controller/`)** : G√®re les interactions utilisateur, r√©parti de mani√®re experte entre :
+    *   `MainController` (gestion de l'image et liens entre les composants)
+    *   `FilterController` (gestion des actions li√©es aux filtres et transformations)
+    *   `LibraryController` (gestion et recherche intra-biblioth√®que)
+*   **Services (`src/main/java/com/imagemanager/service/`)** : Isole la logique m√©tier (ImageService, PersistenceService, TagService) pour √©viter de surcharger les contr√¥leurs.
+*   **Utilitaires (`src/main/java/com/imagemanager/util/`)** : Outillage global du projet comme SaveManager par exemple.
+*   **Point d'entr√©e** : √Ä la racine de `src/main/java/com/imagemanager/`, vous trouverez `Main.java`, la classe principale de l'Application JavaFX.
 
-*   Java JDK 21 (ou supÈrieur)
+## Pr√©requis
+
+*   Java JDK 21 (ou sup√©rieur)
 *   Maven 3.x
 
-## Compilation et ExÈcution
+## Compilation et Ex√©cution
 
-Ouvrez un terminal ‡ la racine du projet (l‡ o˘ se trouve le `pom.xml`) et exÈcutez la commande suivante :
+Ouvrez un terminal √† la racine du projet (l√† o√π se trouve le `pom.xml`) et ex√©cutez la commande suivante :
 
 ```bash
-mvn clean compile javafx:run
+mvn clean javafx:run
 ```
