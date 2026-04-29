@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Label?>
+
+<VBox spacing="12" prefWidth="260" styleClass="panel"
+      xmlns:fx="http://javafx.com/fxml" fx:controller="com.imagemanager.controller.LibraryController">
+    <Label text="📚 BIBLIOTHÈQUE" styleClass="section-label"/>
+    <TextField fx:id="searchField" promptText="🔍 Rechercher par tag..."/>
+    <Button text="Rechercher" onAction="#searchByTag" maxWidth="Infinity" styleClass="btn-tag"/>
+    <ListView fx:id="libraryList" prefHeight="440"/>
+    <Button text="📂 Charger Sélection" onAction="#loadSelectedFromLibrary" maxWidth="Infinity" styleClass="btn-file"/>
+    <Button text="🗑️ Supprimer" onAction="#deleteSelectedFromLibrary" maxWidth="Infinity" styleClass="btn-reset"/>
+    <Label fx:id="imageInfoLabel" text="" wrapText="true" styleClass="info-label"/>
+</VBox>
+
